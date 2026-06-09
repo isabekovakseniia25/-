@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi día · che, charlamos?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff;
+    --lav-50:#f7f8ff;
+    --lav-100:#eef0fd;
+    --lav-150:#e6e9fb;
+    --lav-200:#dfe3f9;
+    --lav-300:#c8d0f5;
+    --border:#e3e6f7;
+    --border-soft:#eef0fa;
+    --ink:#11142d;
+    --ink-soft:#5c5f7a;
+    --ink-faint:#9ca0b5;
+    --blue:#5466ff;
+    --blue-hover:#3f4ee0;
+    --blue-soft:#dde2ff;
+    --yellow:#ffc83d;
+    --pink:#ed3a72;
+    --pink-soft:#ffe3ed;
+    --green:#3cb878;
+    --green-bg:#dff4e7;
+    --red:#f85e5e;
+    --red-bg:#ffe1e1;
+    --navy:#11142d;
+    --navy-hover:#1f2447;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Manrope',system-ui,-apple-system,sans-serif;
+    background:var(--white);
+    color:var(--ink);
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    font-feature-settings:"ss01","cv11";
+  }
+  ::selection{background:var(--blue);color:#fff}
+
+  .container{
+    max-width:880px;
+    margin:0 auto;
+    padding:24px 24px 80px;
+  }
+
+  /* ============ BRAND MARK ============ */
+  .brand{
+    display:flex;justify-content:center;align-items:center;
+    gap:14px;
+    padding:24px 0 28px;
+    border-bottom:1px solid var(--border);
+    flex-wrap:wrap;
+  }
+  .brand .pill{
+    background:var(--blue);
+    color:#fff;
+    font-weight:700;
+    font-size:24px;
+    padding:8px 22px 9px;
+    border-radius:99px;
+    letter-spacing:-0.01em;
+    line-height:1;
+  }
+  .brand .name{
+    font-weight:700;
+    font-size:24px;
+    color:var(--ink);
+    letter-spacing:-0.02em;
+  }
+  .brand .meta{
+    font-weight:500;
+    font-size:16px;
+    color:var(--ink-faint);
+  }
+  @media(max-width:500px){
+    .brand .pill,.brand .name{font-size:20px}
+  }
+
+  /* ============ HERO ============ */
+  .hero{padding:48px 0 24px}
+  .hero h1{
+    font-size:clamp(40px,7vw,64px);
+    font-weight:800;
+    letter-spacing:-0.03em;
+    margin:0 0 14px;
+    color:var(--ink);
+    line-height:1.05;
+  }
+  .hero h1 .heart{color:var(--blue)}
+  .hero p{
+    font-size:18px;
+    color:var(--ink-soft);
+    margin:0;
+    max-width:620px;
+  }
+  .hero-tags{
+    display:flex;gap:8px;flex-wrap:wrap;
+    margin-top:22px;
+  }
+  .tag{
+    background:var(--lav-100);
+    color:var(--ink-soft);
+    font-size:13px;
+    font-weight:700;
+    padding:7px 14px;
+    border-radius:99px;
+  }
+  .tag.blue{background:var(--blue-soft);color:var(--blue)}
+
+  /* ============ TOC CARDS ============ */
+  .toc{margin:40px 0 0}
+  .toc-label{
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 14px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .toc-label::after{
+    content:'';flex:1;height:1px;background:var(--border);
+  }
+  .toc-cards{display:flex;flex-direction:column;gap:10px}
+  .toc-card{
+    display:flex;align-items:center;gap:16px;
+    padding:18px 22px;
+    border:1px solid var(--lav-200);
+    background:var(--white);
+    border-radius:16px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:all 0.18s;
+  }
+  .toc-card:hover{
+    border-color:var(--blue);
+    background:var(--lav-50);
+    transform:translateY(-1px);
+  }
+  .toc-card .dot{
+    width:10px;height:10px;
+    background:var(--blue);
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .toc-card .info{flex:1;min-width:0}
+  .toc-card .info h3{
+    margin:0 0 3px;
+    font-size:17px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .toc-card .info p{
+    margin:0;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  .toc-card .tag-right{
+    background:var(--lav-100);
+    color:var(--ink-soft);
+    font-size:11px;
+    font-weight:800;
+    padding:6px 14px;
+    border-radius:99px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    flex-shrink:0;
+  }
+
+  /* ============ SECTION BLOCK ============ */
+  .block{
+    padding:64px 0 16px;
+    scroll-margin-top:20px;
+  }
+  .ex-tag{
+    display:inline-block;
+    background:var(--pink);
+    color:#fff;
+    font-size:11px;
+    font-weight:800;
+    padding:8px 16px;
+    border-radius:99px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .block-title{
+    font-size:38px;
+    font-weight:800;
+    letter-spacing:-0.025em;
+    margin:0 0 10px;
+    color:var(--ink);
+    line-height:1.1;
+  }
+  .block-desc{
+    font-size:17px;
+    color:var(--ink-soft);
+    margin:0 0 28px;
+    max-width:620px;
+  }
+  .sub-tag{
+    display:inline-block;
+    background:var(--lav-100);
+    color:var(--blue);
+    font-size:11px;
+    font-weight:800;
+    padding:6px 14px;
+    border-radius:99px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    margin:24px 0 14px;
+  }
+  h3.sub-title{
+    font-size:22px;
+    font-weight:800;
+    color:var(--ink);
+    margin:24px 0 14px;
+    letter-spacing:-0.015em;
+  }
+
+  /* ============ GENERIC CARD ============ */
+  .card{
+    background:var(--white);
+    border:1px solid var(--lav-200);
+    border-radius:18px;
+    padding:24px 28px;
+    position:relative;
+  }
+  .card.dot::after{
+    content:'';
+    position:absolute;top:14px;right:14px;
+    width:12px;height:12px;
+    background:var(--yellow);
+    border-radius:50%;
+  }
+  .card-lav{background:var(--lav-50)}
+
+  /* ============ CALENTAMIENTO ============ */
+  .q-list{list-style:none;padding:0;margin:0}
+  .q-list li{
+    display:flex;gap:14px;align-items:baseline;
+    padding:14px 0;
+    border-bottom:1px solid var(--border-soft);
+    font-size:18px;
+    color:var(--ink);
+  }
+  .q-list li:last-child{border-bottom:none}
+  .q-list li::before{
+    content:attr(data-n);
+    color:var(--blue);
+    font-weight:800;
+    font-size:13px;
+    min-width:26px;
+  }
+  .q-list em{font-style:italic;color:var(--blue);font-weight:600}
+
+  /* ============ CONJUGATION CARDS ============ */
+  .conj-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-bottom:8px;
+  }
+  @media(max-width:720px){.conj-grid{grid-template-columns:1fr}}
+  .conj{
+    background:var(--lav-50);
+    border:1px solid var(--lav-200);
+    border-radius:16px;
+    padding:18px 22px;
+    position:relative;
+  }
+  .conj::after{
+    content:'';position:absolute;top:12px;right:12px;
+    width:10px;height:10px;background:var(--yellow);border-radius:50%;
+  }
+  .conj-head{
+    display:flex;align-items:center;gap:8px;
+    margin-bottom:12px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--lav-200);
+  }
+  .conj-name{
+    font-size:18px;font-weight:800;color:var(--blue);
+    letter-spacing:-0.01em;
+  }
+  .conj-end{
+    background:var(--white);
+    color:var(--ink-faint);
+    font-size:10px;font-weight:800;
+    padding:4px 10px;border-radius:99px;
+    letter-spacing:0.12em;
+    margin-left:auto;
+  }
+  .conj table{width:100%;border-collapse:collapse;font-size:15px}
+  .conj td{padding:5px 0}
+  .conj td:first-child{color:var(--ink-soft);width:55%}
+  .conj td:last-child{
+    font-weight:700;color:var(--ink);
+    text-align:right;
+  }
+  .conj td:last-child .e{color:var(--blue)}
+
+  /* ============ PRACTICE ROWS ============ */
+  .practice{display:flex;flex-direction:column;gap:10px}
+  .practice-row{
+    display:flex;align-items:center;gap:14px;
+    padding:14px 18px;
+    background:var(--lav-50);
+    border:1px solid var(--lav-200);
+    border-radius:12px;
+  }
+  .practice-row .pronoun{
+    font-weight:800;color:var(--blue);
+    min-width:90px;
+  }
+  .practice-row .inf{
+    color:var(--ink-soft);font-size:13px;
+    min-width:90px;font-weight:600;
+    background:var(--white);
+    padding:4px 10px;border-radius:99px;
+    text-align:center;
+  }
+  .practice-row input{
+    flex:1;
+    border:none;background:transparent;
+    border-bottom:2px solid var(--lav-300);
+    font-family:inherit;
+    font-size:17px;font-weight:700;
+    color:var(--ink);
+    padding:4px 4px;outline:none;
+    min-width:120px;
+    transition:border-color 0.15s;
+  }
+  .practice-row input:focus{border-bottom-color:var(--blue)}
+  .practice-row input.ok{border-bottom-color:var(--green);color:var(--green)}
+  .practice-row input.bad{border-bottom-color:var(--red);color:var(--red)}
+
+  /* ============ VOCABULARY ============ */
+  .vocab-cat{
+    font-size:11px;font-weight:800;
+    letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:24px 0 10px;
+  }
+  .vocab-cat:first-child{margin-top:0}
+  .vocab-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:6px 28px;
+  }
+  @media(max-width:680px){.vocab-grid{grid-template-columns:1fr}}
+  .vocab-item{
+    display:flex;align-items:baseline;gap:10px;
+    padding:8px 0;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .vocab-es{font-weight:700;color:var(--ink);flex-shrink:0}
+  .vocab-dash{color:var(--ink-faint)}
+  .vocab-ru{color:var(--ink-soft);font-size:15px}
+
+  /* ============ PICTURES ============ */
+  .pics-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:12px;
+  }
+  @media(max-width:720px){.pics-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:480px){.pics-grid{grid-template-columns:repeat(2,1fr)}}
+  .pic{
+    background:var(--white);
+    border:1px solid var(--lav-200);
+    border-radius:14px;
+    padding:16px 8px;
+    text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    transition:border-color 0.15s;
+  }
+  .pic:hover{border-color:var(--lav-300)}
+  .pic .emoji{font-size:36px;line-height:1}
+  .pic .num{
+    font-size:11px;font-weight:800;color:var(--ink-faint);
+    letter-spacing:0.08em;
+  }
+  .pic input{
+    width:100%;
+    border:none;background:transparent;
+    border-bottom:2px solid var(--lav-300);
+    text-align:center;padding:4px 0;
+    font-family:inherit;font-size:13px;font-weight:700;
+    color:var(--ink);outline:none;
+  }
+  .pic input:focus{border-bottom-color:var(--blue)}
+  .pic input.ok{border-bottom-color:var(--green);color:var(--green)}
+  .pic input.bad{border-bottom-color:var(--red);color:var(--red)}
+
+  /* ============ CROSSWORD GRID ============ */
+  .cw-wrap{
+    overflow-x:auto;
+    padding:8px 0 16px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .cw-grid{
+    display:grid;
+    grid-template-columns:repeat(12,36px);
+    grid-auto-rows:38px;
+    gap:2px;
+    width:max-content;
+    margin:0 auto;
+  }
+  @media(max-width:600px){
+    .cw-grid{grid-template-columns:repeat(12,30px);grid-auto-rows:32px}
+  }
+  .cw-cell{position:relative}
+  .cw-cell input{
+    width:100%;height:100%;
+    text-align:center;
+    border:1px solid var(--lav-200);
+    background:var(--lav-50);
+    border-radius:5px;
+    font-family:inherit;
+    font-size:17px;font-weight:700;
+    color:var(--ink);
+    text-transform:lowercase;
+    outline:none;
+    padding:0;
+    transition:all 0.15s;
+  }
+  @media(max-width:600px){.cw-cell input{font-size:14px}}
+  .cw-cell input:focus{
+    border-color:var(--blue);
+    background:var(--white);
+    z-index:2;
+  }
+  .cw-cell input.ok{
+    border-color:var(--green);
+    background:var(--green-bg);
+    color:var(--green);
+  }
+  .cw-cell input.bad{
+    border-color:var(--red);
+    background:var(--red-bg);
+    color:var(--red);
+  }
+  .cw-cell .num{
+    position:absolute;
+    top:1px;left:3px;
+    font-size:9px;
+    font-weight:800;
+    color:var(--blue);
+    z-index:3;
+    pointer-events:none;
+    line-height:1;
+  }
+  @media(max-width:600px){
+    .cw-cell .num{font-size:8px;top:1px;left:2px}
+  }
+  /* Crossword clues */
+  .cw-clues{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:28px;
+  }
+  @media(max-width:600px){.cw-clues{grid-template-columns:1fr;gap:20px}}
+  .cw-clue-col h4{
+    font-size:11px;font-weight:800;
+    letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--ink-faint);
+    margin:0 0 10px;
+  }
+  .cw-clue-list{
+    list-style:none;padding:0;margin:0;
+    display:flex;flex-direction:column;
+  }
+  .cw-clue-list li{
+    display:flex;gap:10px;align-items:baseline;
+    padding:8px 0;
+    border-bottom:1px solid var(--border-soft);
+    font-size:14px;
+  }
+  .cw-clue-list li:last-child{border-bottom:none}
+  .cw-clue-list .n{
+    font-weight:800;color:var(--blue);
+    min-width:22px;font-size:13px;
+  }
+  .cw-clue-list .ru{color:var(--ink-soft)}
+
+  /* ============ GRAMMAR EXPLAIN ============ */
+  .explain{
+    background:var(--lav-50);
+    border:1px solid var(--lav-200);
+    border-radius:16px;
+    padding:22px 28px;
+    position:relative;
+  }
+  .explain::after{
+    content:'';position:absolute;top:14px;right:14px;
+    width:12px;height:12px;background:var(--yellow);border-radius:50%;
+  }
+  .explain p{margin:0 0 12px}
+  .explain p:last-child{margin-bottom:0}
+  .explain b{color:var(--blue);font-weight:800}
+  .explain em{font-style:normal;font-weight:700;color:var(--ink)}
+  .explain code{
+    background:var(--white);
+    color:var(--blue);
+    padding:2px 8px;border-radius:6px;
+    font-size:14px;font-weight:700;
+    font-family:'Manrope',sans-serif;
+    border:1px solid var(--lav-200);
+  }
+
+  /* ============ REFLEX TABLE ============ */
+  .reflex-table{
+    width:100%;border-collapse:collapse;
+    background:var(--white);
+    border:1px solid var(--lav-200);
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .reflex-table th{
+    background:var(--lav-100);
+    text-align:left;padding:12px 18px;
+    font-size:11px;font-weight:800;
+    letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .reflex-table td{
+    padding:12px 18px;
+    border-top:1px solid var(--border-soft);
+  }
+  .reflex-table td:first-child{color:var(--ink-soft);width:26%}
+  .reflex-table td:nth-child(2){
+    font-weight:800;color:var(--blue);width:34%;
+  }
+  .reflex-table td:last-child{color:var(--ink-soft);font-size:15px}
+
+  /* ============ FILL-IN ============ */
+  .fill-list{display:flex;flex-direction:column;gap:6px}
+  .fill-row{
+    display:flex;align-items:baseline;gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border-soft);
+    font-size:17px;
+  }
+  .fill-row:last-child{border-bottom:none}
+  .fill-row .n{
+    font-size:13px;font-weight:800;color:var(--blue);
+    min-width:24px;
+  }
+  .fill-row input{
+    border:none;background:transparent;
+    border-bottom:2px solid var(--lav-300);
+    font-family:inherit;font-weight:800;
+    color:var(--blue);font-size:17px;
+    padding:2px 6px;width:90px;text-align:center;outline:none;
+  }
+  .fill-row input:focus{border-bottom-color:var(--blue)}
+  .fill-row input.ok{border-bottom-color:var(--green);color:var(--green)}
+  .fill-row input.bad{border-bottom-color:var(--red);color:var(--red)}
+
+  /* ============ MATCH ============ */
+  .match-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:20px;
+  }
+  @media(max-width:600px){.match-grid{grid-template-columns:1fr}}
+  .match-col{display:flex;flex-direction:column;gap:8px}
+  .match-col h4{
+    font-size:11px;font-weight:800;
+    letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 4px;
+  }
+  .match-row{
+    display:flex;align-items:center;gap:10px;
+    padding:12px 16px;
+    background:var(--lav-50);
+    border:1px solid var(--lav-200);
+    border-radius:12px;
+    font-size:15px;
+  }
+  .match-row .lbl{
+    font-size:13px;font-weight:800;color:var(--blue);
+    min-width:22px;
+  }
+  .match-row input{
+    border:none;background:transparent;
+    border-bottom:2px solid var(--lav-300);
+    width:36px;text-align:center;
+    font-family:inherit;font-weight:800;color:var(--blue);
+    outline:none;text-transform:uppercase;padding:2px 0;
+  }
+  .match-row input.ok{border-bottom-color:var(--green);color:var(--green)}
+  .match-row input.bad{border-bottom-color:var(--red)}
+  .match-row .text{flex:1;color:var(--ink);font-weight:500}
+  .match-right .text{font-weight:700;color:var(--blue)}
+
+  /* ============ CLOZE ============ */
+  .cloze{
+    background:var(--lav-50);
+    border:1px solid var(--lav-200);
+    border-radius:16px;
+    padding:24px 28px;
+    font-size:18px;line-height:2.1;
+    position:relative;
+  }
+  .cloze::after{
+    content:'';position:absolute;top:14px;right:14px;
+    width:12px;height:12px;background:var(--yellow);border-radius:50%;
+  }
+  .cloze input{
+    border:none;background:var(--white);
+    border-bottom:2px solid var(--lav-300);
+    font-family:inherit;font-weight:700;font-size:16px;
+    color:var(--blue);padding:4px 8px;
+    width:130px;text-align:center;outline:none;
+    border-radius:6px 6px 0 0;
+  }
+  .cloze input:focus{border-bottom-color:var(--blue)}
+  .cloze input.ok{border-bottom-color:var(--green);color:var(--green)}
+  .cloze input.bad{border-bottom-color:var(--red);color:var(--red)}
+  .cloze .hint{
+    font-size:12px;color:var(--ink-faint);
+    font-weight:600;margin-left:2px;
+  }
+
+  /* ============ TRANSLATE ============ */
+  .tr-list{display:flex;flex-direction:column;gap:14px}
+  .tr-item{display:flex;flex-direction:column;gap:6px}
+  .tr-ru{font-size:16px;color:var(--ink-soft)}
+  .tr-ru::before{
+    content:attr(data-n)'.';
+    font-weight:800;color:var(--blue);margin-right:8px;
+  }
+  .tr-item textarea{
+    width:100%;min-height:44px;
+    padding:10px 14px;
+    border:1px solid var(--lav-200);
+    border-radius:10px;
+    background:var(--white);
+    font-family:inherit;font-size:16px;
+    color:var(--ink);resize:vertical;outline:none;
+    transition:border-color 0.15s;
+  }
+  .tr-item textarea:focus{border-color:var(--blue)}
+
+  /* ============ LECTURA ============ */
+  .lectura{
+    background:var(--white);
+    border:1px solid var(--lav-200);
+    border-radius:18px;
+    padding:30px 34px;
+    position:relative;
+  }
+  .lectura::after{
+    content:'';position:absolute;top:16px;right:16px;
+    width:14px;height:14px;background:var(--yellow);border-radius:50%;
+  }
+  .lectura h3{
+    margin:0 0 6px;
+    font-size:24px;font-weight:800;color:var(--ink);
+    letter-spacing:-0.015em;
+  }
+  .lectura .by{
+    font-size:11px;font-weight:800;
+    letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-bottom:16px;display:block;
+  }
+  .lectura p{
+    margin:0;font-size:17px;line-height:1.78;color:var(--ink);
+  }
+
+  /* ============ PHRASES ============ */
+  .phrases{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 24px}
+  @media(max-width:680px){.phrases{grid-template-columns:1fr}}
+  .phrase{
+    display:flex;align-items:baseline;gap:8px;
+    padding:10px 0;
+    border-bottom:1px solid var(--border-soft);
+    font-size:15px;
+  }
+  .phrase .n{font-size:12px;font-weight:800;color:var(--blue);min-width:22px}
+  .phrase .ru{color:var(--ink-soft);flex-shrink:0}
+  .phrase .dash{color:var(--ink-faint);margin:0 2px}
+  .phrase input{
+    flex:1;border:none;background:transparent;
+    border-bottom:2px solid var(--lav-300);
+    font-family:inherit;font-weight:700;color:var(--ink);
+    padding:2px 4px;outline:none;min-width:100px;font-size:15px;
+  }
+  .phrase input:focus{border-bottom-color:var(--blue)}
+  .phrase input.ok{border-bottom-color:var(--green);color:var(--green)}
+  .phrase input.bad{border-bottom-color:var(--red);color:var(--red)}
+
+  /* ============ Q&A ============ */
+  .qa-list{display:flex;flex-direction:column;gap:14px}
+  .qa-item{
+    display:flex;flex-direction:column;gap:8px;
+    padding:14px 0;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .qa-item:last-child{border-bottom:none}
+  .qa-q{font-size:17px;font-weight:700;color:var(--ink)}
+  .qa-q::before{
+    content:attr(data-n)'.';
+    color:var(--blue);margin-right:8px;
+  }
+  .qa-q .hint{font-size:13px;color:var(--ink-faint);font-weight:500}
+  .qa-item textarea{
+    width:100%;min-height:40px;
+    padding:9px 14px;
+    border:1px solid var(--lav-200);
+    border-radius:10px;
+    background:var(--white);
+    font-family:inherit;font-size:15px;color:var(--ink);
+    resize:vertical;outline:none;
+  }
+  .qa-item textarea:focus{border-color:var(--blue)}
+
+  /* ============ QUIZ (multiple choice) ============ */
+  .quiz{margin-top:8px}
+  .quiz-progress{
+    text-align:center;
+    color:var(--ink-faint);
+    font-weight:700;font-size:15px;
+    margin-bottom:16px;
+  }
+  .quiz-card{
+    background:var(--white);
+    border:1px solid var(--lav-200);
+    border-radius:18px;
+    padding:32px 34px 28px;
+    position:relative;
+    margin-bottom:16px;
+  }
+  .quiz-card::after{
+    content:'';position:absolute;top:16px;right:16px;
+    width:14px;height:14px;background:var(--yellow);border-radius:50%;
+  }
+  .quiz-pill{
+    display:inline-block;
+    background:var(--lav-100);
+    color:var(--blue);
+    font-weight:700;font-size:14px;
+    padding:6px 18px;border-radius:99px;
+    margin-bottom:22px;
+  }
+  .quiz-sentence{
+    font-size:22px;font-weight:700;color:var(--ink);
+    margin:0 0 10px;line-height:1.4;
+    letter-spacing:-0.01em;
+  }
+  .quiz-gap{
+    display:inline-block;
+    min-width:90px;
+    border-bottom:2px solid var(--ink);
+    margin:0 4px;
+    vertical-align:bottom;
+  }
+  .quiz-ru{
+    color:var(--ink-soft);font-style:italic;
+    font-size:16px;margin:0;
+  }
+  .quiz-options{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:12px;margin:24px 0 0;
+  }
+  @media(max-width:480px){.quiz-options{grid-template-columns:1fr}}
+  .quiz-opt{
+    background:var(--white);
+    border:1px solid var(--lav-200);
+    border-radius:14px;
+    padding:18px;
+    text-align:center;
+    font-size:17px;font-weight:700;color:var(--ink);
+    cursor:pointer;
+    transition:all 0.15s;
+    font-family:inherit;
+  }
+  .quiz-opt:hover{
+    border-color:var(--blue);
+    background:var(--lav-50);
+  }
+  .quiz-opt.correct{
+    background:var(--green-bg);
+    border:1.5px solid var(--green);
+    color:var(--green);
+  }
+  .quiz-opt.wrong{
+    background:var(--red-bg);
+    border:1.5px solid var(--red);
+    color:var(--red);
+  }
+  .quiz-opt.disabled{cursor:default;pointer-events:none}
+  .quiz-feedback{
+    background:var(--red-bg);
+    border-radius:12px;
+    padding:14px 18px;
+    font-size:15px;color:var(--ink);
+    margin-top:14px;
+  }
+  .quiz-feedback.ok{background:var(--green-bg)}
+  .quiz-feedback b{color:var(--red)}
+  .quiz-feedback.ok b{color:var(--green)}
+  .quiz-next{
+    width:100%;
+    background:var(--navy);color:#fff;
+    border:none;border-radius:14px;
+    padding:18px;
+    font-family:inherit;font-size:15px;font-weight:800;
+    cursor:pointer;
+    transition:background 0.15s;
+    letter-spacing:0.02em;
+  }
+  .quiz-next:hover{background:var(--navy-hover)}
+  .quiz-result{
+    text-align:center;padding:48px 24px;
+    background:var(--lav-50);
+    border:1px solid var(--lav-200);
+    border-radius:18px;
+  }
+  .quiz-result .score{
+    font-size:56px;font-weight:800;
+    color:var(--blue);margin-bottom:8px;
+    letter-spacing:-0.03em;
+  }
+  .quiz-result p{font-size:18px;color:var(--ink-soft);margin:0 0 24px}
+  .quiz-restart{
+    background:var(--white);
+    color:var(--blue);
+    border:1.5px solid var(--blue);
+    border-radius:14px;
+    padding:14px 28px;
+    font-family:inherit;font-size:14px;font-weight:800;
+    cursor:pointer;
+    letter-spacing:0.04em;
+  }
+  .quiz-restart:hover{background:var(--blue-soft)}
+
+  /* ============ SPEAK ============ */
+  .speak-card{
+    background:var(--lav-50);
+    border:1px solid var(--lav-200);
+    border-radius:18px;
+    padding:32px 34px;
+    position:relative;
+  }
+  .speak-card::after{
+    content:'';position:absolute;top:18px;right:18px;
+    width:14px;height:14px;background:var(--yellow);border-radius:50%;
+  }
+  .speak-prompt{
+    font-size:26px;font-weight:800;
+    color:var(--ink);
+    margin:0 0 24px;
+    letter-spacing:-0.02em;line-height:1.3;
+  }
+  .speak-prompt::before{content:'« ';color:var(--blue)}
+  .speak-prompt::after{content:' »';color:var(--blue)}
+  .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .chip{
+    background:var(--white);
+    border:1px solid var(--lav-200);
+    color:var(--blue);
+    font-weight:700;font-size:14px;
+    padding:7px 14px;border-radius:99px;
+  }
+  .speak-q-list{
+    list-style:none;padding:0;margin:18px 0 0;
+    counter-reset:q;
+  }
+  .speak-q-list li{
+    counter-increment:q;
+    padding:12px 0 12px 38px;
+    position:relative;
+    color:var(--ink);font-size:16px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .speak-q-list li:last-child{border-bottom:none}
+  .speak-q-list li::before{
+    content:counter(q);
+    position:absolute;left:0;top:10px;
+    background:var(--blue);color:#fff;
+    width:24px;height:24px;border-radius:50%;
+    text-align:center;font-size:12px;font-weight:800;
+    line-height:24px;
+  }
+
+  /* ============ TAREA (dark) ============ */
+  .tarea-card{
+    background:var(--navy);
+    color:#fff;
+    border-radius:18px;
+    padding:36px 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .tarea-card::after{
+    content:'';position:absolute;top:18px;right:18px;
+    width:14px;height:14px;background:var(--yellow);border-radius:50%;
+  }
+  .tarea-card h3{
+    margin:0 0 24px;
+    font-size:30px;font-weight:800;
+    letter-spacing:-0.02em;
+  }
+  .tarea-card ol{
+    list-style:none;padding:0;margin:0;
+    counter-reset:tarea;
+  }
+  .tarea-card ol li{
+    counter-increment:tarea;
+    padding:16px 0 16px 42px;
+    position:relative;font-size:16px;
+    border-top:1px solid rgba(255,255,255,0.1);
+    color:rgba(255,255,255,0.92);
+  }
+  .tarea-card ol li:first-child{border-top:none}
+  .tarea-card ol li::before{
+    content:counter(tarea);
+    position:absolute;left:0;top:18px;
+    background:var(--yellow);color:var(--navy);
+    width:28px;height:28px;border-radius:50%;
+    text-align:center;font-size:13px;font-weight:800;
+    line-height:28px;
+  }
+  .tarea-card ol li:first-child::before{top:2px}
+  .tarea-card b{color:var(--yellow);font-weight:800}
+
+  /* ============ BUTTONS ============ */
+  .btn-row{
+    display:flex;gap:10px;flex-wrap:wrap;
+    margin-top:20px;align-items:center;
+  }
+  .btn{
+    background:var(--navy);
+    color:#fff;
+    border:none;border-radius:14px;
+    padding:14px 26px;
+    font-family:inherit;
+    font-size:13px;font-weight:800;
+    letter-spacing:0.04em;
+    cursor:pointer;
+    transition:background 0.15s,transform 0.1s;
+  }
+  .btn:hover{background:var(--navy-hover)}
+  .btn:active{transform:translateY(1px)}
+  .btn-outline{
+    background:var(--white);
+    color:var(--blue);
+    border:1.5px solid var(--blue);
+  }
+  .btn-outline:hover{background:var(--blue-soft)}
+  .fb{
+    font-weight:700;font-size:15px;
+    color:var(--green);align-self:center;
+  }
+  .fb.warn{color:var(--pink)}
+
+  /* Smooth fade in */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .block{animation:fadeUp 0.4s ease both}
+
+  /* Footer */
+  footer{
+    padding:48px 0 0;
+    text-align:center;
+    margin-top:48px;
+    border-top:1px solid var(--border);
+  }
+  footer .brand-mini{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-bottom:8px;
+  }
+  footer .brand-mini .pill{
+    background:var(--blue);color:#fff;
+    font-weight:700;padding:5px 14px;
+    border-radius:99px;font-size:14px;
+  }
+  footer .brand-mini .name{font-weight:700;color:var(--ink)}
+  footer small{
+    color:var(--ink-faint);font-size:13px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ============ BRAND MARK ============ -->
+  <div class="brand">
+    <span class="pill">che,</span>
+    <span class="name">charlamos?</span>
+    <span class="meta">· Mi día</span>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <h1>Mi día. <span class="heart">💙</span></h1>
+    <p>Урок 4 · теория, словарь, упражнения и говорение по теме «Мой день». Возвратные глаголы, рутина, маркеры времени.</p>
+    <div class="hero-tags">
+      <span class="tag blue">A1 → A2</span>
+      <span class="tag">60 минут</span>
+      <span class="tag">8 разделов</span>
+    </div>
+  </section>
+
+  <!-- ============ TOC ============ -->
+  <section class="toc">
+    <h2 class="toc-label">Разделы урока</h2>
+    <div class="toc-cards">
+      <a class="toc-card" href="#calentamiento">
+        <span class="dot"></span>
+        <div class="info"><h3>Calentamiento</h3><p>Разговорный разогрев</p></div>
+        <span class="tag-right">5 мин</span>
+      </a>
+      <a class="toc-card" href="#repaso">
+        <span class="dot"></span>
+        <div class="info"><h3>Repaso · Presente regular</h3><p>Спряжения -ar / -er / -ir</p></div>
+        <span class="tag-right">7 мин</span>
+      </a>
+      <a class="toc-card" href="#vocabulario">
+        <span class="dot"></span>
+        <div class="info"><h3>Vocabulario</h3><p>Слова и выражения по теме</p></div>
+        <span class="tag-right">10 мин</span>
+      </a>
+      <a class="toc-card" href="#crucigrama">
+        <span class="dot"></span>
+        <div class="info"><h3>Crucigrama</h3><p>Кроссворд из 10 глаголов</p></div>
+        <span class="tag-right">5 мин</span>
+      </a>
+      <a class="toc-card" href="#gramatica">
+        <span class="dot"></span>
+        <div class="info"><h3>Verbos reflexivos</h3><p>Возвратные глаголы + 4 упражнения + квиз</p></div>
+        <span class="tag-right">13 мин</span>
+      </a>
+      <a class="toc-card" href="#lectura">
+        <span class="dot"></span>
+        <div class="info"><h3>Lectura</h3><p>Текст «Un día con Lucía» и вопросы</p></div>
+        <span class="tag-right">13 мин</span>
+      </a>
+      <a class="toc-card" href="#hablar">
+        <span class="dot"></span>
+        <div class="info"><h3>Mi día · hablar</h3><p>Главное говорение урока</p></div>
+        <span class="tag-right">9 мин</span>
+      </a>
+      <a class="toc-card" href="#tarea">
+        <span class="dot"></span>
+        <div class="info"><h3>Tarea</h3><p>Домашнее задание</p></div>
+        <span class="tag-right">3 мин</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ 00 CALENTAMIENTO ============ -->
+  <section class="block" id="calentamiento">
+    <span class="ex-tag">00 · Calentamiento</span>
+    <h2 class="block-title">Поболтаем для начала</h2>
+    <p class="block-desc">Лёгкий разговорный разогрев перед грамматикой. Отвечай полными предложениями — не торопись.</p>
+
+    <div class="card dot">
+      <ol class="q-list">
+        <li data-n="01">¿Cómo estás hoy? ¿Qué tal el día?</li>
+        <li data-n="02">¿Te gusta el café o el té por la mañana?</li>
+        <li data-n="03">¿Eres una persona <em>de mañana</em> o <em>de noche</em>?</li>
+        <li data-n="04">¿Qué te gusta hacer los fines de semana?</li>
+        <li data-n="05">¿Cuántas horas trabajas al día?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 01 REPASO ============ -->
+  <section class="block" id="repaso">
+    <span class="ex-tag">01 · Repaso</span>
+    <h2 class="block-title">Presente de indicativo</h2>
+    <p class="block-desc">Перед возвратными глаголами освежаем три модели правильных глаголов: <b>-ar</b>, <b>-er</b>, <b>-ir</b>. Окончания — основа всего.</p>
+
+    <div class="conj-grid">
+      <div class="conj">
+        <div class="conj-head">
+          <span class="conj-name">hablar</span>
+          <span class="conj-end">-AR</span>
+        </div>
+        <table>
+          <tr><td>yo</td><td>habl<span class="e">o</span></td></tr>
+          <tr><td>tú</td><td>habl<span class="e">as</span></td></tr>
+          <tr><td>él / ella / Ud.</td><td>habl<span class="e">a</span></td></tr>
+          <tr><td>nosotros</td><td>habl<span class="e">amos</span></td></tr>
+          <tr><td>vosotros</td><td>habl<span class="e">áis</span></td></tr>
+          <tr><td>ellos / Uds.</td><td>habl<span class="e">an</span></td></tr>
+        </table>
+      </div>
+      <div class="conj">
+        <div class="conj-head">
+          <span class="conj-name">comer</span>
+          <span class="conj-end">-ER</span>
+        </div>
+        <table>
+          <tr><td>yo</td><td>com<span class="e">o</span></td></tr>
+          <tr><td>tú</td><td>com<span class="e">es</span></td></tr>
+          <tr><td>él / ella / Ud.</td><td>com<span class="e">e</span></td></tr>
+          <tr><td>nosotros</td><td>com<span class="e">emos</span></td></tr>
+          <tr><td>vosotros</td><td>com<span class="e">éis</span></td></tr>
+          <tr><td>ellos / Uds.</td><td>com<span class="e">en</span></td></tr>
+        </table>
+      </div>
+      <div class="conj">
+        <div class="conj-head">
+          <span class="conj-name">vivir</span>
+          <span class="conj-end">-IR</span>
+        </div>
+        <table>
+          <tr><td>yo</td><td>viv<span class="e">o</span></td></tr>
+          <tr><td>tú</td><td>viv<span class="e">es</span></td></tr>
+          <tr><td>él / ella / Ud.</td><td>viv<span class="e">e</span></td></tr>
+          <tr><td>nosotros</td><td>viv<span class="e">imos</span></td></tr>
+          <tr><td>vosotros</td><td>viv<span class="e">ís</span></td></tr>
+          <tr><td>ellos / Uds.</td><td>viv<span class="e">en</span></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <span class="sub-tag">Práctica · пинг-понг</span>
+    <p class="block-desc" style="margin-bottom:14px">Напиши правильную форму глагола. В конце — <b>Comprobar</b>.</p>
+
+    <div class="practice" id="practice-conj">
+      <div class="practice-row"><span class="pronoun">yo</span><span class="inf">trabajar</span><input data-answer="trabajo" placeholder="…"></div>
+      <div class="practice-row"><span class="pronoun">nosotros</span><span class="inf">leer</span><input data-answer="leemos" placeholder="…"></div>
+      <div class="practice-row"><span class="pronoun">ellos</span><span class="inf">escribir</span><input data-answer="escriben" placeholder="…"></div>
+      <div class="practice-row"><span class="pronoun">tú</span><span class="inf">comer</span><input data-answer="comes" placeholder="…"></div>
+      <div class="practice-row"><span class="pronoun">ella</span><span class="inf">vivir</span><input data-answer="vive" placeholder="…"></div>
+      <div class="practice-row"><span class="pronoun">vosotros</span><span class="inf">hablar</span><input data-answer="habláis" placeholder="…"></div>
+      <div class="practice-row"><span class="pronoun">yo</span><span class="inf">beber</span><input data-answer="bebo" placeholder="…"></div>
+      <div class="practice-row"><span class="pronoun">nosotras</span><span class="inf">abrir</span><input data-answer="abrimos" placeholder="…"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" data-target="practice-conj">Comprobar</button>
+      <button class="btn btn-outline" data-target="practice-conj" data-action="reveal">Mostrar respuestas</button>
+      <span class="fb" id="fb-practice-conj"></span>
+    </div>
+  </section>
+
+  <!-- ============ 02 VOCABULARIO ============ -->
+  <section class="block" id="vocabulario">
+    <span class="ex-tag">02 · Vocabulario</span>
+    <h2 class="block-title">Слова и выражения</h2>
+    <p class="block-desc">Сначала читаем список вслух — повтори произношение. Затем — упражнение с картинками.</p>
+
+    <div class="card dot">
+      <div class="vocab-cat">Когда · маркеры времени</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-es">por la mañana</span><span class="vocab-dash">—</span><span class="vocab-ru">утром</span></div>
+        <div class="vocab-item"><span class="vocab-es">por la tarde</span><span class="vocab-dash">—</span><span class="vocab-ru">днём / вечером</span></div>
+        <div class="vocab-item"><span class="vocab-es">por la noche</span><span class="vocab-dash">—</span><span class="vocab-ru">ночью / поздним вечером</span></div>
+        <div class="vocab-item"><span class="vocab-es">cada día</span><span class="vocab-dash">—</span><span class="vocab-ru">каждый день</span></div>
+        <div class="vocab-item"><span class="vocab-es">el fin de semana</span><span class="vocab-dash">—</span><span class="vocab-ru">на выходных</span></div>
+      </div>
+
+      <div class="vocab-cat">Рутина · возвратные глаголы</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-es">levantarse</span><span class="vocab-dash">—</span><span class="vocab-ru">вставать, подниматься</span></div>
+        <div class="vocab-item"><span class="vocab-es">ducharse</span><span class="vocab-dash">—</span><span class="vocab-ru">принимать душ</span></div>
+        <div class="vocab-item"><span class="vocab-es">lavarse los dientes</span><span class="vocab-dash">—</span><span class="vocab-ru">чистить зубы</span></div>
+        <div class="vocab-item"><span class="vocab-es">afeitarse</span><span class="vocab-dash">—</span><span class="vocab-ru">бриться</span></div>
+        <div class="vocab-item"><span class="vocab-es">maquillarse</span><span class="vocab-dash">—</span><span class="vocab-ru">краситься, наносить макияж</span></div>
+      </div>
+
+      <div class="vocab-cat">День за днём · обычные глаголы</div>
+      <div class="vocab-grid">
+        <div class="vocab-item"><span class="vocab-es">desayunar</span><span class="vocab-dash">—</span><span class="vocab-ru">завтракать</span></div>
+        <div class="vocab-item"><span class="vocab-es">comer</span><span class="vocab-dash">—</span><span class="vocab-ru">обедать / есть</span></div>
+        <div class="vocab-item"><span class="vocab-es">cenar</span><span class="vocab-dash">—</span><span class="vocab-ru">ужинать</span></div>
+        <div class="vocab-item"><span class="vocab-es">tomar un café</span><span class="vocab-dash">—</span><span class="vocab-ru">пить кофе</span></div>
+        <div class="vocab-item"><span class="vocab-es">tomar un té</span><span class="vocab-dash">—</span><span class="vocab-ru">пить чай</span></div>
+        <div class="vocab-item"><span class="vocab-es">sacar al perro</span><span class="vocab-dash">—</span><span class="vocab-ru">выгуливать собаку</span></div>
+        <div class="vocab-item"><span class="vocab-es">pasear</span><span class="vocab-dash">—</span><span class="vocab-ru">гулять</span></div>
+        <div class="vocab-item"><span class="vocab-es">practicar deporte</span><span class="vocab-dash">—</span><span class="vocab-ru">заниматься спортом</span></div>
+        <div class="vocab-item"><span class="vocab-es">ver la tele</span><span class="vocab-dash">—</span><span class="vocab-ru">смотреть телевизор</span></div>
+        <div class="vocab-item"><span class="vocab-es">descansar</span><span class="vocab-dash">—</span><span class="vocab-ru">отдыхать</span></div>
+        <div class="vocab-item"><span class="vocab-es">regresar</span><span class="vocab-dash">—</span><span class="vocab-ru">возвращаться</span></div>
+      </div>
+    </div>
+
+    <span class="sub-tag">Ejercicio 1 · подпиши картинки</span>
+
+    <div class="pics-grid" id="pics-ex">
+      <div class="pic"><span class="emoji">⏰</span><span class="num">01</span><input data-answer="levantarse" placeholder="…"></div>
+      <div class="pic"><span class="emoji">🪥</span><span class="num">02</span><input data-answer="lavarse los dientes" placeholder="…"></div>
+      <div class="pic"><span class="emoji">🍳</span><span class="num">03</span><input data-answer="desayunar" placeholder="…"></div>
+      <div class="pic"><span class="emoji">🚿</span><span class="num">04</span><input data-answer="ducharse" placeholder="…"></div>
+      <div class="pic"><span class="emoji">🤸</span><span class="num">05</span><input data-answer="practicar deporte" placeholder="…"></div>
+      <div class="pic"><span class="emoji">🍵</span><span class="num">06</span><input data-answer="tomar un té" placeholder="…"></div>
+      <div class="pic"><span class="emoji">🪒</span><span class="num">07</span><input data-answer="afeitarse" placeholder="…"></div>
+      <div class="pic"><span class="emoji">☕</span><span class="num">08</span><input data-answer="tomar un café" placeholder="…"></div>
+      <div class="pic"><span class="emoji">💄</span><span class="num">09</span><input data-answer="maquillarse" placeholder="…"></div>
+      <div class="pic"><span class="emoji">📖</span><span class="num">10</span><input data-answer="descansar" placeholder="…"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" data-target="pics-ex">Comprobar</button>
+      <button class="btn btn-outline" data-target="pics-ex" data-action="reveal">Mostrar respuestas</button>
+      <span class="fb" id="fb-pics-ex"></span>
+    </div>
+  </section>
+
+  <!-- ============ 03 CRUCIGRAMA ============ -->
+  <section class="block" id="crucigrama">
+    <span class="ex-tag">03 · Crucigrama</span>
+    <h2 class="block-title">Кроссворд</h2>
+    <p class="block-desc">Заполни сетку — буквы пересекаются как в настоящем кроссворде. Подсказки внизу.</p>
+
+    <div class="card">
+      <div class="cw-wrap">
+        <div class="cw-grid" id="cw-grid"></div>
+      </div>
+
+      <div class="cw-clues">
+        <div class="cw-clue-col">
+          <h4>По горизонтали  ↔</h4>
+          <ul class="cw-clue-list" id="cw-across"></ul>
+        </div>
+        <div class="cw-clue-col">
+          <h4>По вертикали  ↕</h4>
+          <ul class="cw-clue-list" id="cw-down"></ul>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" data-target="cw-grid">Comprobar</button>
+        <button class="btn btn-outline" data-target="cw-grid" data-action="reveal">Mostrar respuestas</button>
+        <span class="fb" id="fb-cw-grid"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 GRAMÁTICA ============ -->
+  <section class="block" id="gramatica">
+    <span class="ex-tag">04 · Gramática</span>
+    <h2 class="block-title">Возвратные глаголы</h2>
+    <p class="block-desc">Объяснение, спряжение по образцу, четыре упражнения из учебника и мини-квиз для закрепления.</p>
+
+    <div class="explain">
+      <p>В испанском, как и в русском, есть <b>возвратные глаголы</b> — те, чьё действие направлено на самого себя. По-русски это окончание <em>-ся</em> (мыть → мыть<em>ся</em>), а в испанском — частица <code>-se</code> в конце инфинитива: <em>levantarse</em>, <em>ducharse</em>, <em>afeitarse</em>.</p>
+      <p>Чтобы поставить глагол в личную форму, нужно два шага:</p>
+      <p>1. Берём частицу <code>-se</code>, меняем её по местоимениям и ставим <b>перед</b> глаголом.<br>
+      2. Оставшуюся основу (levantar) спрягаем как обычный глагол в настоящем времени.</p>
+      <p>Частица меняется так:<br>
+      <code>yo → me</code> · <code>tú → te</code> · <code>él/ella/Ud. → se</code> · <code>nosotros → nos</code> · <code>vosotros → os</code> · <code>ellos/Uds. → se</code></p>
+    </div>
+
+    <span class="sub-tag">Образец · levantarse</span>
+
+    <table class="reflex-table">
+      <tr><th>Местоимение</th><th>Форма</th><th>Перевод</th></tr>
+      <tr><td>yo</td><td>me levanto</td><td>я поднимаюсь</td></tr>
+      <tr><td>tú</td><td>te levantas</td><td>ты поднимаешься</td></tr>
+      <tr><td>él / ella / Ud.</td><td>se levanta</td><td>он / она поднимается; Вы (уваж.) поднимаетесь</td></tr>
+      <tr><td>nosotros / nosotras</td><td>nos levantamos</td><td>мы поднимаемся</td></tr>
+      <tr><td>vosotros / vosotras</td><td>os levantáis</td><td>вы поднимаетесь</td></tr>
+      <tr><td>ellos / ellas / Uds.</td><td>se levantan</td><td>они поднимаются; Вы (мн.) поднимаетесь</td></tr>
+    </table>
+
+    <!-- Ej 1 -->
+    <span class="sub-tag">Ejercicio 1 · вставь форму -se</span>
+
+    <div class="card">
+      <div class="fill-list" id="ex-se">
+        <div class="fill-row"><span class="n">01</span>Yo <input data-answer="me"> ducho.</div>
+        <div class="fill-row"><span class="n">02</span>Ella <input data-answer="se"> maquilla.</div>
+        <div class="fill-row"><span class="n">03</span>Nosotros <input data-answer="nos"> afeitamos.</div>
+        <div class="fill-row"><span class="n">04</span>Ellos <input data-answer="se"> lavan los dientes.</div>
+        <div class="fill-row"><span class="n">05</span>Tú <input data-answer="te"> levantas.</div>
+        <div class="fill-row"><span class="n">06</span>María <input data-answer="se"> ducha.</div>
+        <div class="fill-row"><span class="n">07</span>Alba y Lola <input data-answer="se"> maquillan.</div>
+        <div class="fill-row"><span class="n">08</span>Enrique y tú <input data-answer="os"> levantáis.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" data-target="ex-se">Comprobar</button>
+        <button class="btn btn-outline" data-target="ex-se" data-action="reveal">Mostrar respuestas</button>
+        <span class="fb" id="fb-ex-se"></span>
+      </div>
+    </div>
+
+    <!-- Ej 2 -->
+    <span class="sub-tag">Ejercicio 2 · соедини части предложения</span>
+
+    <div class="card">
+      <div class="match-grid" id="ex-match">
+        <div class="match-col match-left">
+          <h4>Начало</h4>
+          <div class="match-row"><span class="lbl">1</span><span class="text">Tú te…</span><input data-answer="B" maxlength="1"></div>
+          <div class="match-row"><span class="lbl">2</span><span class="text">Yo me…</span><input data-answer="E" maxlength="1"></div>
+          <div class="match-row"><span class="lbl">3</span><span class="text">Ella se…</span><input data-answer="C" maxlength="1"></div>
+          <div class="match-row"><span class="lbl">4</span><span class="text">Ellos se…</span><input data-answer="D" maxlength="1"></div>
+          <div class="match-row"><span class="lbl">5</span><span class="text">Nosotros nos…</span><input data-answer="F" maxlength="1"></div>
+          <div class="match-row"><span class="lbl">6</span><span class="text">Vosotros os…</span><input data-answer="A" maxlength="1"></div>
+        </div>
+        <div class="match-col match-right">
+          <h4>Окончание</h4>
+          <div class="match-row"><span class="lbl">A</span><span class="text">…laváis los dientes</span></div>
+          <div class="match-row"><span class="lbl">B</span><span class="text">…levantas por la mañana</span></div>
+          <div class="match-row"><span class="lbl">C</span><span class="text">…maquilla por la noche</span></div>
+          <div class="match-row"><span class="lbl">D</span><span class="text">…duchan por la mañana</span></div>
+          <div class="match-row"><span class="lbl">E</span><span class="text">…afeito cada día</span></div>
+          <div class="match-row"><span class="lbl">F</span><span class="text">…levantamos y desayunamos</span></div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" data-target="ex-match">Comprobar</button>
+        <button class="btn btn-outline" data-target="ex-match" data-action="reveal">Mostrar respuestas</button>
+        <span class="fb" id="fb-ex-match"></span>
+      </div>
+    </div>
+
+    <!-- Ej 3 -->
+    <span class="sub-tag">Ejercicio 3 · вставь форму глагола</span>
+
+    <div class="cloze" id="ex-cloze">
+      <p style="margin:0">Yo <input data-answer="vivo"><span class="hint">(vivir)</span> en Bilbao,
+      <input data-answer="soy"><span class="hint">(ser)</span> profesor de inglés y
+      <input data-answer="trabajo"><span class="hint">(trabajar)</span> en una academia de idiomas.
+      Cada día <input data-answer="me levanto"><span class="hint">(levantarse)</span>,
+      <input data-answer="me ducho"><span class="hint">(ducharse)</span> y
+      <input data-answer="tomo"><span class="hint">(tomar)</span> un café.
+      Después <input data-answer="saco"><span class="hint">(sacar)</span> al perro y voy al trabajo.
+      Por la tarde <input data-answer="regreso"><span class="hint">(regresar)</span> a casa y
+      <input data-answer="hablo"><span class="hint">(hablar)</span> con mi madre.
+      Por la noche mis amigos y yo <input data-answer="practicamos"><span class="hint">(practicar)</span> deporte en el parque o
+      <input data-answer="descansamos"><span class="hint">(descansar)</span> en un bar.</p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" data-target="ex-cloze">Comprobar</button>
+      <button class="btn btn-outline" data-target="ex-cloze" data-action="reveal">Mostrar respuestas</button>
+      <span class="fb" id="fb-ex-cloze"></span>
+    </div>
+
+    <!-- Ej 4 -->
+    <span class="sub-tag">Ejercicio 4 · перевод (на дом)</span>
+
+    <div class="card">
+      <p class="block-desc" style="margin-bottom:14px">Запиши свой вариант. Когда закончишь — <em>Mostrar respuestas</em> для проверки.</p>
+      <div class="tr-list" id="ex-tr">
+        <div class="tr-item"><div class="tr-ru" data-n="1">Утром я встаю, принимаю душ и завтракаю.</div><textarea></textarea><div class="answer" data-answer="Por la mañana me levanto, me ducho y desayuno." hidden></div></div>
+        <div class="tr-item"><div class="tr-ru" data-n="2">Он чистит зубы, бреется и пьёт кофе.</div><textarea></textarea><div class="answer" data-answer="Él se lava los dientes, se afeita y toma un café." hidden></div></div>
+        <div class="tr-item"><div class="tr-ru" data-n="3">Ночью они пьют чай и принимают душ.</div><textarea></textarea><div class="answer" data-answer="Por la noche ellos toman un té y se duchan." hidden></div></div>
+        <div class="tr-item"><div class="tr-ru" data-n="4">Каждый день мы гуляем с собакой и занимаемся спортом.</div><textarea></textarea><div class="answer" data-answer="Cada día sacamos al perro (paseamos al perro) y practicamos deporte." hidden></div></div>
+        <div class="tr-item"><div class="tr-ru" data-n="5">Ты красишься и смотришь телевизор.</div><textarea></textarea><div class="answer" data-answer="Te maquillas y ves la tele." hidden></div></div>
+        <div class="tr-item"><div class="tr-ru" data-n="6">Вы чистите зубы ночью.</div><textarea></textarea><div class="answer" data-answer="Os laváis los dientes por la noche." hidden></div></div>
+        <div class="tr-item"><div class="tr-ru" data-n="7">Мы ужинаем, чистим зубы и читаем книгу.</div><textarea></textarea><div class="answer" data-answer="Cenamos, nos lavamos los dientes y leemos un libro." hidden></div></div>
+        <div class="tr-item"><div class="tr-ru" data-n="8">Ты не чистишь зубы утром?</div><textarea></textarea><div class="answer" data-answer="¿No te lavas los dientes por la mañana?" hidden></div></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-outline" data-target="ex-tr" data-action="reveal-tr">Mostrar respuestas</button>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <span class="sub-tag">Quiz · 6 вопросов</span>
+    <p class="block-desc" style="margin-bottom:14px">Быстрая проверка возвратных глаголов. 4 варианта, один правильный.</p>
+
+    <div class="quiz" id="quiz">
+      <div class="quiz-progress" id="quiz-progress">1 / 6</div>
+      <div id="quiz-stage"></div>
+    </div>
+  </section>
+
+  <!-- ============ 05 LECTURA ============ -->
+  <section class="block" id="lectura">
+    <span class="ex-tag">05 · Lectura</span>
+    <h2 class="block-title">Un día con Lucía</h2>
+    <p class="block-desc">Лёгкий текст про обычный день одной испанки. Если слово незнакомое — попробуй понять из контекста или подсмотри в словаре.</p>
+
+    <div class="lectura">
+      <h3>Un día con Lucía</h3>
+      <span class="by">Texto adaptado · A1</span>
+      <p>Lucía Romero es una mujer española de Madrid. Tiene una vida muy ocupada. Cada día se levanta a las siete porque trabaja en una librería pequeña en el centro. Es vendedora de libros y le encanta su trabajo. Por la mañana primero se ducha, se lava los dientes y se maquilla un poco. Después Lucía desayuna tostadas con tomate y aceite, toma un café con leche y lee un libro durante quince minutos. Por la tarde trabaja en la librería, por eso come en una cafetería cerca: normalmente come ensalada con pollo o un bocadillo y toma un té frío. Después del trabajo regresa a casa, saca al perro al parque y descansa: ve la tele o habla por teléfono con su madre. Por la noche Lucía y su novio cenan pasta o pizza en casa. El fin de semana ellos pasean por el centro, practican deporte en el parque o descansan en un café con sus amigos.</p>
+    </div>
+
+    <span class="sub-tag">Ejercicio 1 · найди фразы в тексте</span>
+
+    <div class="card">
+      <div class="phrases" id="ex-phrases">
+        <div class="phrase"><span class="n">01</span><span class="ru">Очень занятая жизнь</span><span class="dash">—</span><input data-answer="una vida muy ocupada"></div>
+        <div class="phrase"><span class="n">02</span><span class="ru">Испанка из Мадрида</span><span class="dash">—</span><input data-answer="una mujer española de Madrid"></div>
+        <div class="phrase"><span class="n">03</span><span class="ru">Тосты с томатом и маслом</span><span class="dash">—</span><input data-answer="tostadas con tomate y aceite"></div>
+        <div class="phrase"><span class="n">04</span><span class="ru">Кофе с молоком</span><span class="dash">—</span><input data-answer="café con leche"></div>
+        <div class="phrase"><span class="n">05</span><span class="ru">Поэтому ест в кафетерии</span><span class="dash">—</span><input data-answer="por eso come en una cafetería"></div>
+        <div class="phrase"><span class="n">06</span><span class="ru">Холодный чай</span><span class="dash">—</span><input data-answer="un té frío"></div>
+        <div class="phrase"><span class="n">07</span><span class="ru">Выгуливает собаку в парке</span><span class="dash">—</span><input data-answer="saca al perro al parque"></div>
+        <div class="phrase"><span class="n">08</span><span class="ru">Говорит по телефону с мамой</span><span class="dash">—</span><input data-answer="habla por teléfono con su madre"></div>
+        <div class="phrase"><span class="n">09</span><span class="ru">Ужинают пастой или пиццей</span><span class="dash">—</span><input data-answer="cenan pasta o pizza"></div>
+        <div class="phrase"><span class="n">10</span><span class="ru">Гуляют по центру</span><span class="dash">—</span><input data-answer="pasean por el centro"></div>
+        <div class="phrase"><span class="n">11</span><span class="ru">Занимаются спортом в парке</span><span class="dash">—</span><input data-answer="practican deporte en el parque"></div>
+        <div class="phrase"><span class="n">12</span><span class="ru">Отдыхают в кафе с друзьями</span><span class="dash">—</span><input data-answer="descansan en un café con sus amigos"></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn" data-target="ex-phrases">Comprobar</button>
+        <button class="btn btn-outline" data-target="ex-phrases" data-action="reveal">Mostrar respuestas</button>
+        <span class="fb" id="fb-ex-phrases"></span>
+      </div>
+    </div>
+
+    <span class="sub-tag">Ejercicio 2 · ответь на вопросы</span>
+
+    <div class="card">
+      <div class="qa-list" id="ex-qa">
+        <div class="qa-item"><div class="qa-q" data-n="1">¿Dónde <span class="hint">(где?)</span> trabaja Lucía?</div><textarea></textarea><div class="answer" data-answer="Lucía trabaja en una librería pequeña en el centro de Madrid." hidden></div></div>
+        <div class="qa-item"><div class="qa-q" data-n="2">¿Qué hace <span class="hint">(что делает?)</span> por la mañana?</div><textarea></textarea><div class="answer" data-answer="Por la mañana se ducha, se lava los dientes y se maquilla un poco." hidden></div></div>
+        <div class="qa-item"><div class="qa-q" data-n="3">¿Qué desayuna?</div><textarea></textarea><div class="answer" data-answer="Desayuna tostadas con tomate y aceite y toma un café con leche." hidden></div></div>
+        <div class="qa-item"><div class="qa-q" data-n="4">¿Qué lee Lucía por la mañana?</div><textarea></textarea><div class="answer" data-answer="Por la mañana Lucía lee un libro durante quince minutos." hidden></div></div>
+        <div class="qa-item"><div class="qa-q" data-n="5">¿Cómo <span class="hint">(как?)</span> descansa?</div><textarea></textarea><div class="answer" data-answer="Descansa viendo la tele o hablando por teléfono con su madre." hidden></div></div>
+        <div class="qa-item"><div class="qa-q" data-n="6">¿Con quién <span class="hint">(с кем?)</span> cena Lucía?</div><textarea></textarea><div class="answer" data-answer="Lucía cena con su novio en casa." hidden></div></div>
+        <div class="qa-item"><div class="qa-q" data-n="7">¿Qué hace el fin de semana?</div><textarea></textarea><div class="answer" data-answer="El fin de semana pasea por el centro, practica deporte en el parque o descansa en un café con sus amigos." hidden></div></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-outline" data-target="ex-qa" data-action="reveal-tr">Mostrar respuestas</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 HABLAR ============ -->
+  <section class="block" id="hablar">
+    <span class="ex-tag">06 · ¡A hablar!</span>
+    <h2 class="block-title">Mi día — расскажи свой</h2>
+    <p class="block-desc">Сердце урока. Расскажи свой обычный рабочий день — как Лусия из текста. Не торопись, используй маркеры времени и слова-связки.</p>
+
+    <div class="speak-card">
+      <p class="speak-prompt">Cuéntame tu día — un día típico de trabajo, desde por la mañana hasta por la noche.</p>
+
+      <span class="sub-tag" style="margin-top:0">Connectors · слова-связки</span>
+      <div class="chip-row">
+        <span class="chip">primero</span>
+        <span class="chip">después</span>
+        <span class="chip">luego</span>
+        <span class="chip">más tarde</span>
+        <span class="chip">por la mañana</span>
+        <span class="chip">por la tarde</span>
+        <span class="chip">por la noche</span>
+        <span class="chip">finalmente</span>
+        <span class="chip">también</span>
+        <span class="chip">porque</span>
+        <span class="chip">normalmente</span>
+      </div>
+
+      <span class="sub-tag">Estructura · структура рассказа</span>
+      <ol class="speak-q-list">
+        <li>¿A qué hora te levantas? ¿Qué haces primero?</li>
+        <li>¿Qué desayunas? ¿Tomas café o té?</li>
+        <li>¿Dónde trabajas? ¿Qué haces por la tarde?</li>
+        <li>¿Cuándo regresas a casa? ¿Cómo descansas?</li>
+        <li>¿Con quién cenas? ¿Qué hacéis por la noche?</li>
+        <li>¿Y los fines de semana — cambia tu rutina?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 07 TAREA ============ -->
+  <section class="block" id="tarea">
+    <span class="ex-tag">07 · Tarea</span>
+    <h2 class="block-title">Домашнее задание</h2>
+    <p class="block-desc">Закрепляем дома то, что разобрали в классе.</p>
+
+    <div class="tarea-card">
+      <h3>Para la próxima clase</h3>
+      <ol>
+        <li><b>Crucigrama</b> — закончи 10 глаголов в разделе 03.</li>
+        <li><b>Перевод</b> — упражнение 4 (8 предложений с русского на испанский).</li>
+        <li><b>Mi día</b> — напиши 8–10 предложений про свой день по модели текста про Лусию. Минимум <b>5 новых слов</b> и <b>3 возвратных глагола</b>.</li>
+        <li><b>Bonus</b> — запиши голосовое (1 минута) с пересказом своего дня. Без подглядывания в текст.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <div class="brand-mini">
+      <span class="pill">che,</span>
+      <span class="name">charlamos?</span>
+    </div>
+    <br>
+    <small>clases de español · lección 04 · Mi día</small>
+  </footer>
+</div>
+
+<script>
+// =========== HELPERS ===========
+const norm = s => (s||'').toLowerCase().trim()
+  .replace(/\s+/g,' ')
+  .replace(/[.,;!?¡¿]/g,'');
+
+// =========== CROSSWORD GRID ===========
+// Each cell: r=row, c=col (1-indexed), l=letter, n=number (optional)
+const cwCells = [
+  {r:1,c:8,l:'d',n:1},
+  {r:2,c:2,l:'d',n:2},{r:2,c:5,l:'a',n:3},{r:2,c:8,l:'u'},
+  {r:3,c:2,l:'e'},{r:3,c:5,l:'f'},{r:3,c:8,l:'c',n:4},{r:3,c:9,l:'o'},{r:3,c:10,l:'m'},{r:3,c:11,l:'e'},{r:3,c:12,l:'r'},
+  {r:4,c:2,l:'s'},{r:4,c:5,l:'e'},{r:4,c:8,l:'h'},
+  {r:5,c:1,l:'m',n:5},{r:5,c:2,l:'a'},{r:5,c:3,l:'q'},{r:5,c:4,l:'u'},{r:5,c:5,l:'i'},{r:5,c:6,l:'l',n:6},{r:5,c:7,l:'l'},{r:5,c:8,l:'a'},{r:5,c:9,l:'r',n:7},{r:5,c:10,l:'s'},{r:5,c:11,l:'e'},
+  {r:6,c:2,l:'y'},{r:6,c:5,l:'t'},{r:6,c:6,l:'e'},{r:6,c:8,l:'r'},{r:6,c:9,l:'e'},
+  {r:7,c:2,l:'u'},{r:7,c:5,l:'a'},{r:7,c:6,l:'v'},{r:7,c:8,l:'s'},{r:7,c:9,l:'g'},
+  {r:8,c:2,l:'n'},{r:8,c:5,l:'r'},{r:8,c:6,l:'a'},{r:8,c:8,l:'e'},{r:8,c:9,l:'r'},
+  {r:9,c:2,l:'a'},{r:9,c:5,l:'s'},{r:9,c:6,l:'n'},{r:9,c:8,l:'c',n:8},{r:9,c:9,l:'e'},{r:9,c:10,l:'n'},{r:9,c:11,l:'a'},{r:9,c:12,l:'r'},
+  {r:10,c:2,l:'r'},{r:10,c:5,l:'e'},{r:10,c:6,l:'t'},{r:10,c:9,l:'s'},
+  {r:11,c:2,l:'p',n:9},{r:11,c:3,l:'a'},{r:11,c:4,l:'s'},{r:11,c:5,l:'e'},{r:11,c:6,l:'a'},{r:11,c:7,l:'r'},{r:11,c:9,l:'a'},
+  {r:12,c:6,l:'r'},{r:12,c:9,l:'r'},
+  {r:13,c:4,l:'d',n:10},{r:13,c:5,l:'e'},{r:13,c:6,l:'s'},{r:13,c:7,l:'c'},{r:13,c:8,l:'a'},{r:13,c:9,l:'n'},{r:13,c:10,l:'s'},{r:13,c:11,l:'a'},{r:13,c:12,l:'r'},
+  {r:14,c:6,l:'e'}
+];
+
+const cwClues = {
+  across: [
+    {n:4, ru:'Есть / обедать'},
+    {n:5, ru:'Краситься'},
+    {n:8, ru:'Ужинать'},
+    {n:9, ru:'Гулять'},
+    {n:10, ru:'Отдыхать'}
+  ],
+  down: [
+    {n:1, ru:'Принимать душ'},
+    {n:2, ru:'Завтракать'},
+    {n:3, ru:'Бриться'},
+    {n:6, ru:'Вставать, подниматься'},
+    {n:7, ru:'Возвращаться'}
+  ]
+};
+
+const cwGrid = document.getElementById('cw-grid');
+function cellAt(r, c){
+  return cwGrid.querySelector(`.cw-cell input[data-r="${r}"][data-c="${c}"]`);
+}
+cwCells.forEach(cell => {
+  const div = document.createElement('div');
+  div.className = 'cw-cell';
+  div.style.gridRow = cell.r;
+  div.style.gridColumn = cell.c;
+  if (cell.n){
+    const num = document.createElement('span');
+    num.className = 'num';
+    num.textContent = cell.n;
+    div.appendChild(num);
+  }
+  const inp = document.createElement('input');
+  inp.maxLength = 1;
+  inp.dataset.answer = cell.l;
+  inp.dataset.r = cell.r;
+  inp.dataset.c = cell.c;
+  inp.addEventListener('input', e => {
+    if (e.target.value){
+      const r = parseInt(inp.dataset.r, 10);
+      const c = parseInt(inp.dataset.c, 10);
+      let next = cellAt(r, c + 1);
+      if (!next) next = cellAt(r + 1, c);
+      if (next) next.focus();
+    }
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !e.target.value){
+      const r = parseInt(inp.dataset.r, 10);
+      const c = parseInt(inp.dataset.c, 10);
+      let prev = cellAt(r, c - 1);
+      if (!prev) prev = cellAt(r - 1, c);
+      if (prev) prev.focus();
+    }
+  });
+  div.appendChild(inp);
+  cwGrid.appendChild(div);
+});
+
+const cwAcrossEl = document.getElementById('cw-across');
+const cwDownEl = document.getElementById('cw-down');
+cwClues.across.forEach(cl => {
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="n">${cl.n}</span><span class="ru">${cl.ru}</span>`;
+  cwAcrossEl.appendChild(li);
+});
+cwClues.down.forEach(cl => {
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="n">${cl.n}</span><span class="ru">${cl.ru}</span>`;
+  cwDownEl.appendChild(li);
+});
+
+// =========== CHECK / REVEAL ===========
+function checkContainer(c){
+  let total = 0, ok = 0;
+  c.querySelectorAll('input[data-answer]').forEach(inp => {
+    total++;
+    const expected = norm(inp.dataset.answer);
+    const got = norm(inp.value);
+    if (!got){
+      inp.classList.remove('ok','bad');
+      return;
+    }
+    if (got === expected){
+      inp.classList.add('ok');
+      inp.classList.remove('bad');
+      ok++;
+    } else {
+      inp.classList.add('bad');
+      inp.classList.remove('ok');
+    }
+  });
+  return {total, ok};
+}
+
+function revealContainer(c){
+  c.querySelectorAll('input[data-answer]').forEach(inp => {
+    inp.value = inp.dataset.answer;
+    inp.classList.add('ok');
+    inp.classList.remove('bad');
+  });
+}
+
+function revealTr(c){
+  c.querySelectorAll('.tr-item, .qa-item').forEach(item => {
+    const ans = item.querySelector('.answer');
+    const ta = item.querySelector('textarea');
+    if (ans && ta){
+      ta.value = ans.dataset.answer;
+      ta.style.color = 'var(--green)';
+      ta.style.borderColor = 'var(--green)';
+      ta.style.background = 'var(--green-bg)';
+    }
+  });
+}
+
+document.querySelectorAll('button.btn').forEach(btn => {
+  if (!btn.dataset.target) return;
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.target;
+    const action = btn.dataset.action;
+    const c = document.getElementById(id);
+    if (!c) return;
+    const fb = document.getElementById('fb-' + id);
+
+    if (action === 'reveal'){
+      revealContainer(c);
+      if (fb) fb.textContent = '¡Listo! Ответы показаны.';
+      return;
+    }
+    if (action === 'reveal-tr'){
+      revealTr(c);
+      return;
+    }
+
+    const {total, ok} = checkContainer(c);
+    if (fb){
+      if (ok === total){
+        fb.textContent = '¡Perfecto! ' + ok + ' / ' + total;
+        fb.classList.remove('warn');
+      } else {
+        fb.textContent = ok + ' / ' + total + ' — проверь красные.';
+        fb.classList.add('warn');
+      }
+    }
+  });
+});
+
+// =========== SMOOTH SCROLL ===========
+document.querySelectorAll('.toc-card[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+// =========== QUIZ ===========
+const quizData = [
+  {
+    inf: 'ducharse',
+    parts: ['Yo ', ' por la mañana.'],
+    ru: 'Я принимаю душ утром.',
+    options: ['me ducho','te duchas','se ducha','nos duchamos'],
+    answer: 0,
+    explain: '«yo» — 1-е лицо ед. ч. → me + ducho.'
+  },
+  {
+    inf: 'levantarse',
+    parts: ['Ellos ', ' a las siete.'],
+    ru: 'Они встают в семь.',
+    options: ['nos levantamos','os levantáis','se levantan','te levantas'],
+    answer: 2,
+    explain: '«ellos» — 3-е лицо мн. ч. → se + levantan.'
+  },
+  {
+    inf: 'maquillarse',
+    parts: ['Ella ', ' por la noche.'],
+    ru: 'Она красится вечером.',
+    options: ['me maquillo','te maquillas','se maquilla','se maquillan'],
+    answer: 2,
+    explain: '«ella» — 3-е лицо ед. ч. → se + maquilla (-a, не -an).'
+  },
+  {
+    inf: 'afeitarse',
+    parts: ['Tú ', ' cada día.'],
+    ru: 'Ты бреешься каждый день.',
+    options: ['me afeito','te afeitas','se afeita','os afeitáis'],
+    answer: 1,
+    explain: '«tú» — 2-е лицо ед. ч. → te + afeitas.'
+  },
+  {
+    inf: 'lavarse los dientes',
+    parts: ['Nosotros ', ' los dientes después de comer.'],
+    ru: 'Мы чистим зубы после еды.',
+    options: ['me lavo','te lavas','nos lavamos','se lavan'],
+    answer: 2,
+    explain: '«nosotros» — 1-е лицо мн. ч. → nos + lavamos.'
+  },
+  {
+    inf: 'ducharse',
+    parts: ['¿Vosotros ', ' por la tarde?'],
+    ru: 'Вы (мн.) принимаете душ днём?',
+    options: ['me ducho','os ducháis','se duchan','nos duchamos'],
+    answer: 1,
+    explain: '«vosotros» — 2-е лицо мн. ч. → os + ducháis.'
+  }
+];
+
+let quizIdx = 0;
+let quizScore = 0;
+const stage = document.getElementById('quiz-stage');
+const progress = document.getElementById('quiz-progress');
+
+function renderQuiz(){
+  if (quizIdx >= quizData.length){
+    progress.textContent = 'Готово!';
+    stage.innerHTML = `
+      <div class="quiz-result">
+        <div class="score">${quizScore} / ${quizData.length}</div>
+        <p>${quizScore === quizData.length ? '¡Perfecto! Все правильно.' : (quizScore >= 4 ? '¡Muy bien! Почти всё.' : 'Стоит повторить возвратные ещё раз.')}</p>
+        <button class="quiz-restart" onclick="restartQuiz()">Пройти заново</button>
+      </div>
+    `;
+    return;
+  }
+  progress.textContent = `${quizIdx + 1} / ${quizData.length}`;
+  const q = quizData[quizIdx];
+  stage.innerHTML = `
+    <div class="quiz-card">
+      <span class="quiz-pill">${q.inf}</span>
+      <p class="quiz-sentence">${q.parts[0]}<span class="quiz-gap"></span>${q.parts[1]}</p>
+      <p class="quiz-ru">${q.ru}</p>
+      <div class="quiz-options">
+        ${q.options.map((opt,i) => `<button class="quiz-opt" data-i="${i}">${opt}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback-slot"></div>
+    </div>
+    <button class="quiz-next" id="quiz-next-btn" style="display:none">Дальше →</button>
+  `;
+  stage.querySelectorAll('.quiz-opt').forEach(b => {
+    b.addEventListener('click', () => handleQuizClick(b));
+  });
+  document.getElementById('quiz-next-btn').addEventListener('click', () => {
+    quizIdx++;
+    renderQuiz();
+  });
+}
+
+function handleQuizClick(btn){
+  const q = quizData[quizIdx];
+  const chosen = parseInt(btn.dataset.i, 10);
+  const opts = stage.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.classList.add('disabled'));
+  const correctEl = opts[q.answer];
+  correctEl.classList.add('correct');
+  const slot = stage.querySelector('.quiz-feedback-slot');
+  const gap = stage.querySelector('.quiz-gap');
+  if (chosen === q.answer){
+    quizScore++;
+    slot.innerHTML = `<div class="quiz-feedback ok">✓ <b>${q.options[q.answer]}</b>. ${q.explain}</div>`;
+  } else {
+    btn.classList.add('wrong');
+    slot.innerHTML = `<div class="quiz-feedback">Правильно: <b>${q.options[q.answer]}</b>. ${q.explain}</div>`;
+  }
+  gap.textContent = q.options[q.answer];
+  gap.style.borderBottomColor = chosen === q.answer ? 'var(--green)' : 'var(--red)';
+  gap.style.color = chosen === q.answer ? 'var(--green)' : 'var(--red)';
+  document.getElementById('quiz-next-btn').style.display = 'block';
+}
+
+function restartQuiz(){
+  quizIdx = 0;
+  quizScore = 0;
+  renderQuiz();
+}
+
+renderQuiz();
+</script>
+</body>
+</html>
